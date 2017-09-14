@@ -11,4 +11,9 @@ pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'GoogleMaps'
 
+pod 'Alamofire'
+pod 'SwiftyJSON'
+
+pod 'SWXMLHash'
+
 end
