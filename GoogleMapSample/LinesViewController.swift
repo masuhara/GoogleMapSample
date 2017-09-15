@@ -54,6 +54,17 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let id = self.restorationIdentifier {
+            if id == "SearchLine" {
+                // TODO: - toDetail
+            } else {
+                Place.shared.line = lines[indexPath.row].lineName
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     func loadLines() {
 
         let allStations = loadCSV(filename: "station20170403free")
@@ -65,9 +76,19 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 // return
             } else {
                 let name = splitStationRow[2]
-                if name.contains(String(stationName.characters.dropLast())) == true {
-                    let stationCode = splitStationRow[1]
-                    stationCodes.append(stationCode)
+                
+                if let stationName = stationName {
+                    if name.contains(String(stationName.characters.dropLast())) == true {
+                        let stationCode = splitStationRow[1]
+                        stationCodes.append(stationCode)
+                    }
+                } else {
+                    if let station = Place.shared.station {
+                        if name.contains(String(station.characters.dropLast())) == true {
+                            let stationCode = splitStationRow[1]
+                            stationCodes.append(stationCode)
+                        }
+                    }
                 }
             }
         }

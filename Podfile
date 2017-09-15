@@ -16,4 +16,7 @@ pod 'SwiftyJSON'
 
 pod 'SWXMLHash'
 
+pod 'SVProgressHUD'
+pod 'NCMB', :git => 'https://github.com/NIFTYCloud-mbaas/ncmb_ios.git'
+
 end

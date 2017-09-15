@@ -38,9 +38,13 @@ class StationsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let indexPath = stationsTableView.indexPathForSelectedRow!
-        let linesViewController = segue.destination as! LinesViewController
-        linesViewController.stationName = stations[indexPath.row].name
+        if let id = segue.identifier {
+            if id == "toLines" {
+                let indexPath = stationsTableView.indexPathForSelectedRow!
+                let linesViewController = segue.destination as! LinesViewController
+                linesViewController.stationName = stations[indexPath.row].name
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,25 +60,52 @@ class StationsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.performSegue(withIdentifier: "toLines", sender: nil)
+        if let id = self.restorationIdentifier {
+            if id == "SearchStation" {
+                self.performSegue(withIdentifier: "toLines", sender: nil)
+            } else {
+                Place.shared.station = stations[indexPath.row].name
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func loadNearByStations() {
-        let url = "http://map.simpleapi.net/stationapi?x=\(location.longitude)&y=\(location.latitude)&output=json"
-
-        Alamofire.request(url).responseJSON { (response) in
-            if let value = response.result.value {
-                let json = JSON(value)
-                for stationInfo in json.arrayValue {
-                    var station = Station(name: stationInfo["name"].string!)
-                    station.traveltime = stationInfo["traveltime"].string!
-                    self.stations.append(station)
+        
+        if let location = location {
+            let url = "http://map.simpleapi.net/stationapi?x=\(location.longitude)&y=\(location.latitude)&output=json"
+            
+            Alamofire.request(url).responseJSON { (response) in
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    for stationInfo in json.arrayValue {
+                        var station = Station(name: stationInfo["name"].string!)
+                        station.traveltime = stationInfo["traveltime"].string!
+                        self.stations.append(station)
+                    }
+                    self.stationsTableView.reloadData()
                 }
-                self.stationsTableView.reloadData()
+            }
+        } else {
+            if let location = Place.shared.location {
+                let url = "http://map.simpleapi.net/stationapi?x=\(location.longitude)&y=\(location.latitude)&output=json"
+                
+                Alamofire.request(url).responseJSON { (response) in
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        for stationInfo in json.arrayValue {
+                            var station = Station(name: stationInfo["name"].string!)
+                            station.traveltime = stationInfo["traveltime"].string!
+                            self.stations.append(station)
+                        }
+                        self.stationsTableView.reloadData()
+                    }
+                }
             }
         }
+        
     }
 
 }

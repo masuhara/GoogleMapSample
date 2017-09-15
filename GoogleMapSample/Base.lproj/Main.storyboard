@@ -42,7 +42,7 @@
         <!--最寄り駅一覧-->
         <scene sceneID="fnT-k1-R4X">
             <objects>
-                <viewController id="Hg3-65-1vA" customClass="StationsViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchStation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hg3-65-1vA" customClass="StationsViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l0D-Rb-Vvr"/>
                         <viewControllerLayoutGuide type="bottom" id="NNX-Ao-ku7"/>
@@ -72,7 +72,7 @@
         <!--路線選択-->
         <scene sceneID="NIE-BW-moH">
             <objects>
-                <viewController id="7aa-Jh-Ngh" customClass="LinesViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchLine" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7aa-Jh-Ngh" customClass="LinesViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cMv-Sn-lg7"/>
                         <viewControllerLayoutGuide type="bottom" id="sNt-TI-Ez2"/>
@@ -137,6 +137,9 @@
                                 <state key="normal" title="チェックイン">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="checkin" destination="Cjs-Yp-d0a" eventType="touchUpInside" id="znH-yh-BCz"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pof-bi-zrR">
                                 <rect key="frame" x="0.0" y="64" width="375" height="464"/>
@@ -149,11 +152,130 @@
                     <navigationItem key="navigationItem" id="0Rs-hV-wz8"/>
                     <connections>
                         <outlet property="inputTableView" destination="Pof-bi-zrR" id="7Tc-9b-enq"/>
+                        <segue destination="xT8-rV-zl7" kind="show" identifier="toStations" id="8B6-zF-263"/>
+                        <segue destination="pa9-4u-aRH" kind="show" identifier="toLines" id="uOh-L9-YsY"/>
+                        <segue destination="kH4-Gf-aYl" kind="show" identifier="toInput" id="DZq-Co-a0J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sKt-1P-1ib" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="879.31034482758628"/>
+        </scene>
+        <!--最寄り駅一覧-->
+        <scene sceneID="wKf-Ur-80w">
+            <objects>
+                <viewController storyboardIdentifier="InputStation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xT8-rV-zl7" customClass="StationsViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fk4-3r-mKL"/>
+                        <viewControllerLayoutGuide type="bottom" id="jkk-aX-xFd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZGG-jh-hrb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rmE-wZ-pdE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="最寄り駅一覧" id="nwP-Ab-9bJ"/>
+                    <connections>
+                        <outlet property="stationsTableView" destination="rmE-wZ-pdE" id="tM2-Kl-sC9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g3y-IQ-XyZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2004" y="781"/>
+        </scene>
+        <!--路線選択-->
+        <scene sceneID="4yF-VY-KRU">
+            <objects>
+                <viewController storyboardIdentifier="InputLine" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pa9-4u-aRH" customClass="LinesViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DL5-Ld-Hb7"/>
+                        <viewControllerLayoutGuide type="bottom" id="DRd-25-KeT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zhY-xv-Z9U">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jp2-9W-vaf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="路線選択" id="wp8-ZE-544"/>
+                    <connections>
+                        <outlet property="linesTableView" destination="jp2-9W-vaf" id="SV5-hM-fiP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OhB-0g-cTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2741.5999999999999" y="878.41079460269873"/>
+        </scene>
+        <!--入力-->
+        <scene sceneID="BYo-T7-qaz">
+            <objects>
+                <viewController id="kH4-Gf-aYl" customClass="InputViewController" customModule="GoogleMapSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xhM-Mu-4NV"/>
+                        <viewControllerLayoutGuide type="bottom" id="zjd-Wv-phW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RcG-WT-hji">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0mJ-dA-onh" customClass="BorderTextField" customModule="GoogleMapSample" customModuleProvider="target">
+                                <rect key="frame" x="37" y="152" width="300" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="電車の方面を入力して下さい" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54u-TJ-hAO">
+                                <rect key="frame" x="37" y="123" width="300" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Php-2i-Pqo">
+                                <rect key="frame" x="37" y="190" width="300" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">(例1) 内回り 品川方面
+(例2) 外回り 鶴橋・天王寺方面</string>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="入力" id="u05-h7-z0t"/>
+                    <connections>
+                        <outlet property="explainTextView" destination="Php-2i-Pqo" id="mdx-zm-eun"/>
+                        <outlet property="inputTextField" destination="0mJ-dA-onh" id="pGn-MC-vH6"/>
+                        <outlet property="titleLabel" destination="54u-TJ-hAO" id="wNV-GN-iGf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XKQ-nm-9YD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2004" y="1467.616191904048"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Hbg-gb-mOM">

@@ -10,6 +10,8 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
+import NCMB
+import SVProgressHUD
 
 class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerDelegate, GMSMapViewDelegate {
     
@@ -46,6 +48,10 @@ class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerD
         loadCurrentLocation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadLocations()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -71,7 +77,9 @@ class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerD
             self.performSegue(withIdentifier: "toStations", sender: nil)
         }
         let checkinAction = UIAlertAction(title: "チェックイン", style: .default) { (action) in
-            
+            Place.shared.name = marker.snippet
+            Place.shared.location = marker.position
+            self.tabBarController?.selectedIndex = 1
         }
         let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
             
@@ -97,14 +105,16 @@ class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerD
     
     // MARK: - MapDelegate
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let actionSheet = UIAlertController(title: marker.snippet, message: "この場所の最寄り駅を検索しますか？", preferredStyle: .actionSheet)
-        let searchAction = UIAlertAction(title: "検索", style: .default) { (action) in
+        let actionSheet = UIAlertController(title: marker.snippet, message: "この場所の詳細を表示しますか？", preferredStyle: .actionSheet)
+        let searchAction = UIAlertAction(title: "詳細を表示", style: .default) { (action) in
             self.searchedLocation = marker.position
             self.performSegue(withIdentifier: "toStations", sender: nil)
         }
         
         let checkinAction = UIAlertAction(title: "チェックイン", style: .default) { (action) in
-            
+            Place.shared.name = marker.snippet
+            Place.shared.location = marker.position
+            self.tabBarController?.selectedIndex = 1
         }
         
         let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
@@ -147,15 +157,10 @@ class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerD
                 
                     let place = placeLikelihoodList.likelihoods.first?.place
                     if let place = place {
-                        print(place.name)
-                        print(place.formattedAddress!.components(separatedBy: ", ")
-                            .joined(separator: "\n"))
-                        
-                        self.mapView.animate(toZoom: 16.0)
-                        self.mapView.animate(toLocation: place.coordinate)
+                        // print(place.name)
+                        // print(place.formattedAddress!.components(separatedBy: ", ").joined(separator: "\n"))
                         
                         self.createMarker(position: place.coordinate, name: place.name)
-                        
                         self.saveLastLocation(location: place.coordinate)
                     }
                 }
@@ -184,6 +189,27 @@ class MapViewController: UIViewController, GMSAutocompleteResultsViewControllerD
         let ud = UserDefaults.standard
         ud.set(lastLocationInfo, forKey: "lastLocation")
         ud.synchronize()
+    }
+    
+    func loadLocations() {
+        
+        self.mapView.clear()
+        
+        let query = NCMBQuery(className: "Place")
+        query?.findObjectsInBackground({ (result, error) in
+            if error != nil {
+                print("error")
+            } else {
+                let places = result as! [NCMBObject]
+                for place in places {
+                    let longitude = place.object(forKey: "longitude") as! Double
+                    let latitude = place.object(forKey: "latitude") as! Double
+                    let name = place.object(forKey: "name") as! String
+                    let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    self.createMarker(position: location, name: name)
+                }
+            }
+        })
     }
     
     func setUpSearchController() {

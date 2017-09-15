@@ -28,6 +28,8 @@
 		7AEF05EC1F6B3F7F0003A4B2 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF05EA1F6B3F7F0003A4B2 /* InputTableViewCell.swift */; };
 		7AEF05ED1F6B3F7F0003A4B2 /* InputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEF05EB1F6B3F7F0003A4B2 /* InputTableViewCell.xib */; };
 		7AEF05EF1F6B40EF0003A4B2 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF05EE1F6B40EF0003A4B2 /* Place.swift */; };
+		7AEF05F51F6BA9640003A4B2 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF05F41F6BA9640003A4B2 /* BorderTextField.swift */; };
+		7AEF05F71F6BAB570003A4B2 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF05F61F6BAB570003A4B2 /* InputViewController.swift */; };
 		DF9E29906A007B211248A42F /* Pods_GoogleMapSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E0247F5F8928CF00E044460 /* Pods_GoogleMapSample.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		7AEF05EA1F6B3F7F0003A4B2 /* InputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		7AEF05EB1F6B3F7F0003A4B2 /* InputTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTableViewCell.xib; sourceTree = "<group>"; };
 		7AEF05EE1F6B40EF0003A4B2 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		7AEF05F41F6BA9640003A4B2 /* BorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
+		7AEF05F61F6BAB570003A4B2 /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		864A90D8CFBA3130FA9C72C9 /* Pods-GoogleMapSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleMapSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoogleMapSample/Pods-GoogleMapSample.debug.xcconfig"; sourceTree = "<group>"; };
 		E410A21194FADED68D82F6A8 /* Pods-GoogleMapSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleMapSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoogleMapSample/Pods-GoogleMapSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,9 +143,10 @@
 			children = (
 				7AEF05B81F6AEF5F0003A4B2 /* AppDelegate.swift */,
 				7AEF05D41F6B15640003A4B2 /* MapViewController.swift */,
-				7AEF05DF1F6B25CC0003A4B2 /* LinesViewController.swift */,
 				7AEF05D21F6B15590003A4B2 /* StationsViewController.swift */,
+				7AEF05DF1F6B25CC0003A4B2 /* LinesViewController.swift */,
 				7AEF05E81F6B3BC00003A4B2 /* CheckinViewController.swift */,
+				7AEF05F61F6BAB570003A4B2 /* InputViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 		7AEF05F31F6B45050003A4B2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7AEF05F41F6BA9640003A4B2 /* BorderTextField.swift */,
 				7AEF05D91F6B167E0003A4B2 /* StationTableViewCell.swift */,
 				7AEF05DA1F6B167E0003A4B2 /* StationTableViewCell.xib */,
 				7AEF05E11F6B25DA0003A4B2 /* LineTableViewCell.swift */,
@@ -262,12 +268,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoogleMapSample/Pods-GoogleMapSample-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/NCMB/NCMB.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NCMB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -324,11 +334,13 @@
 				7AEF05CB1F6AF1B90003A4B2 /* APIKey.swift in Sources */,
 				7AEF05D81F6B160E0003A4B2 /* Station.swift in Sources */,
 				7AEF05DB1F6B167E0003A4B2 /* StationTableViewCell.swift in Sources */,
+				7AEF05F71F6BAB570003A4B2 /* InputViewController.swift in Sources */,
 				7AEF05EF1F6B40EF0003A4B2 /* Place.swift in Sources */,
 				7AEF05E01F6B25CC0003A4B2 /* LinesViewController.swift in Sources */,
 				7AEF05B91F6AEF5F0003A4B2 /* AppDelegate.swift in Sources */,
 				7AEF05E31F6B25DA0003A4B2 /* LineTableViewCell.swift in Sources */,
 				7AEF05E61F6B275D0003A4B2 /* Line.swift in Sources */,
+				7AEF05F51F6BA9640003A4B2 /* BorderTextField.swift in Sources */,
 				7AEF05D51F6B15640003A4B2 /* MapViewController.swift in Sources */,
 				7AEF05EC1F6B3F7F0003A4B2 /* InputTableViewCell.swift in Sources */,
 				7AEF05E91F6B3BC00003A4B2 /* CheckinViewController.swift in Sources */,

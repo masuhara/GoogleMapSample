@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 struct Place {
     
-    let titles = ["場所", "最寄り駅", "路線", "方面", "最寄り出口", "出口付近車両"]
+    let titles = ["場所", "最寄り駅", "路線", "最寄り出口(オプション)", "方面(オプション)", "出口付近車両(オプション)"]
     
-    static let shared = Place()
+    static var shared = Place()
     
     var name: String?
     var station: String?
@@ -20,5 +21,6 @@ struct Place {
     var direction: String?
     var exit: String?
     var trainNumber: String?
+    var location: CLLocationCoordinate2D?
     
 }
